@@ -1,0 +1,38 @@
+{% extends 'ojapp/basic.html' %}
+{% block title %} Problems {% endblock %}
+
+{% block css %} 
+	.problem-easy {
+	    background-color: #98fb98;
+	}
+
+	.problem-medium {
+	    background-color: #FFE87C;
+	}
+
+	.problem-hard {
+	    background-color: #FFCCCB;
+	}
+{% endblock %}
+
+{% block body %}
+<div class="container my-5">
+	<ul class="list-group">
+	  <li class="list-group-item">Problems Dashboard</li>
+	  {% for problem in problems %}
+        <li class="list-group-item list-group-item-action
+            {% if problem.difficulty == 'easy' %}problem-easy{% endif %}
+            {% if problem.difficulty == 'medium' %}problem-medium{% endif %}
+            {% if problem.difficulty == 'hard' %}problem-hard{% endif %}">
+            
+            <div class="clearfix">
+	            <a href="{% url 'show_problem' id=problem.id %}">{{ problem.number }}: {{ problem.title }}</a>
+	            <a href="{% url 'show_problem' id=problem.id %}" class="float-right">Solve</a>
+            </div>
+        </li>
+	  {% endfor %}
+	</ul>
+
+</div>
+
+{% endblock %}
