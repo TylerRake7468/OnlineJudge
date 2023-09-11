@@ -1,0 +1,61 @@
+{% extends 'ojapp/basic.html' %}
+{% block title %} Login {% endblock %}
+
+{% block css %}
+  .rectangle-box {
+    border: 2px solid #000;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #7fb5eb;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 300px; /* Adjust the maximum width as needed */
+    margin: 0 auto; /* Center horizontally */
+  }
+
+  .center-content {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Align content to the top */
+    height: 100vh;
+  }
+
+  .form-control {
+    width: 100%; /* Make input fields take full width */
+  }
+{% endblock %}
+{% block body %}
+
+<div class="container my-5">
+  <div class="center-content">
+    <div class="rectangle-box">
+      <form class="row g-1">
+        <div class="col-12">
+          <label for="inputAddress" class="form-label">Username</label>
+          <input type="text" class="form-control" id="inputAddress" placeholder="Username">
+        </div>
+        <div class="col-12">
+          <label for="inputEmail4" class="form-label">Email</label>
+          <input type="email" class="form-control" id="inputEmail4">
+        </div>
+        <div class="col-12">
+          <label for="inputPassword4" class="form-label">Password</label>
+          <input type="password" class="form-control" id="inputPassword4">
+        </div>
+        <div class="col-12">
+          <label for="inputPassword4" class="form-label">Confirm Password</label>
+          <input type="password" class="form-control" id="inputPassword4">
+        </div>
+
+        <div class="col-12 my-2">
+          <button type="submit" class="btn btn-primary">Sign in</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
+{% endblock %}
