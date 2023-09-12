@@ -7,7 +7,6 @@ class User(models.Model):
 	Password = models.CharField(max_length=50)
 	UserName = models.CharField(max_length=255)
 	Email = models.CharField(max_length=255)
-	DOB = models.DateField()
 
 	def __str__(self):
 		return self.UserName
