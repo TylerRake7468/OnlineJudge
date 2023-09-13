@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <!--Stylesheet-->
     <style media="screen">
               *,
@@ -104,14 +105,20 @@
     </style>
 </head>
 <body>
-    <form method="post">
+    {% if error_message %}
+        <div class="alert alert-danger" role="alert" id="error-alert">
+            {{ error_message }}
+        </div>
+    {% endif %}
+    <form action="{% url 'login_page' %}" method="post">
+        {% csrf_token %}
         <h3>Login Here</h3>
         {% csrf_token %} 
         <label for="username">Username</label>
         <input type="text" placeholder="Enter Username" id="username" name="username">
 
         <label for="password">Password</label>
-        <input type="password" placeholder="Password" id="password" name="pass">
+        <input type="password" placeholder="Password" id="password" name="password">
 
         <button type="submit">Log In</button>
         <!-- <input type="button" value=""> -->
@@ -121,5 +128,18 @@
         </div> -->
         <a href="{% url 'signup_page' %}" >Create a account</a>
     </form>
+
+
+
+
+    <script>
+        var errorAlert = document.getElementById("error-alert")
+        if(errorAlert){
+            setTimeout(function(){
+                errorAlert.style.display = 'none'
+            }, 5000);
+        }
+
+    </script>
 </body>
 </html>
