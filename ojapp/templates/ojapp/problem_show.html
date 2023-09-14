@@ -2,12 +2,33 @@
 {% block title %} Problem {% endblock %}
 
 {% block css %}
+	.soft-border-div {
+	    border: 1px solid #e0e0e0; /* Border color */
+	    border-radius: 8px; /* Border radius for a rounded look */
+	    padding: 20px; /* Optional padding to create some space inside the div */
+	    background-color: #f7f7f7; /* Optional background color */
+	    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Soft box shadow */
+	    width: 610px;
+	}
+    ul {
+        list-style-type: square; /* Change to 'circle' or 'disc' for different styles */
+    }
 {% endblock %}
 
 {% block body %}
-<div class="container my-5">
-	<h5>Problem show page</h5>
-
+<div class="my-3">
+	<h5>_#_:{{ problem.title }}</h5>
+	<div class="soft-border-div">
+		<div class="container">
+			<b>Statement: </b>{{ problem.safe_statement|safe }}
+		</div>
+	</div>
+	<h6></h6>
+	<div class="soft-border-div">
+		<div class="container">
+			<b>Constraints:</b>{{ problem.safe_constraints|safe }}
+		</div>
+	</div>
 </div>
 
 {% endblock %}

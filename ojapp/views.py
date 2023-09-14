@@ -16,7 +16,9 @@ def problems(request):
 	return render(request, "ojapp/problems.html", context)
 
 def show_problem(request, id):
-	return render(request, "ojapp/problem_show.html")
+	problem = Problem.objects.get(id=id)
+
+	return render(request, "ojapp/problem_show.html", {'problem': problem})
 
 def login_handle(request):
 	if request.method == 'POST':
