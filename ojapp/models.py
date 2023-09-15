@@ -36,3 +36,9 @@ class Problem(models.Model):
 
 	def safe_statement(self):
 		return mark_safe(self.statement)
+
+	def safe_input(self):
+		return mark_safe(self.example_input)
+
+	def safe_output(self):
+		return mark_safe(self.example_output)

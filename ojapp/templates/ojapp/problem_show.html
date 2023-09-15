@@ -13,21 +13,77 @@
     ul {
         list-style-type: square; /* Change to 'circle' or 'disc' for different styles */
     }
+    .scrollbar {
+	  margin-left: 10px;
+	  float: left;
+	  height: 700px;
+	  width: 622px;
+	  background: #fff;
+	  overflow-y: scroll;
+	  margin-bottom: 25px;
+	}
+	.force-overflow {
+	  min-height: 450px;
+	}
+
+	.scrollbar-primary::-webkit-scrollbar {
+	  width: 12px;
+	  background-color: #F5F5F5;
+	}
+
+	.scrollbar-primary::-webkit-scrollbar-thumb {
+	  border-radius: 10px;
+	  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+	  background-color: #7fb5eb;
+	}
+
+	.scrollbar-primary {
+	  scrollbar-color: #4285F4 #F5F5F5;
+	}
+
+	.scrollbar-danger::-webkit-scrollbar-track {
+	  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+	  background-color: #F5F5F5;
+	  border-radius: 10px;
+	}
+
+	.scrollbar-danger::-webkit-scrollbar {
+	  width: 12px;
+	  background-color: #F5F5F5;
+	}
+
+	
 {% endblock %}
 
 {% block body %}
-<div class="my-3">
-	<h5>_#_:{{ problem.title }}</h5>
-	<div class="soft-border-div">
-		<div class="container">
-			<b>Statement: </b>{{ problem.safe_statement|safe }}
-		</div>
-	</div>
-	<h6></h6>
-	<div class="soft-border-div">
-		<div class="container">
-			<b>Constraints:</b>{{ problem.safe_constraints|safe }}
-		</div>
+<h5 class="my-2 mx-5">_#_:{{ problem.title }}</h5>
+<div class="my-1 scrollbar scrollbar-primary">
+	<div class="force-overflow">
+			<div class="soft-border-div">
+				<div class="container">
+					<b>Statement: </b>{{ problem.safe_statement|safe }}
+				</div>
+			</div>
+			<div class="soft-border-div">
+				<div class="container">
+					<b>Constraints:</b>{{ problem.safe_constraints|safe }}
+				</div>
+			</div>
+			<div class="soft-border-div">
+				<b>Example:</b><br>
+				<div class="container">
+					<h6>Input:</h6>
+					{{ problem.safe_input|safe }}
+				</div><br>
+				<div class="container">
+					<h6>Output:</h6>
+					{{ problem.safe_output|safe }}
+				</div><br>
+				<div class="container">
+					<h6>Explaination:</h6>
+					{{ problem.example_explain }}
+				</div>
+			</div>
 	</div>
 </div>
 
