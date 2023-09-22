@@ -20,6 +20,10 @@ def show_problem(request, id):
 
 	return render(request, "ojapp/problem_show.html", {'problem': problem})
 
+def verdict_page(request, id):
+	if request.method == 'POST':
+		return HttpResponse("verdict page")
+
 def login_handle(request):
 	if request.method == 'POST':
 		username = request.POST['username']
