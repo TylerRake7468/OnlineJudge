@@ -22,7 +22,7 @@ def show_problem(request, id):
 
 def verdict_page(request, id):
 	if request.method == 'POST':
-		return HttpResponse("verdict page")
+		return render(request, "ojapp/verdict_page.html")
 
 def login_handle(request):
 	if request.method == 'POST':
