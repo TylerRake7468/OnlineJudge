@@ -57,3 +57,11 @@ class SubmissionLog(models.Model):
 
 	def __str__(self):
 		return str(self.submitted_at)+"_"+str(self.user.name)+"_"+self.problem.name+"_"+self.status
+
+class TestCase(models.Model):
+	problem = models.ForeignKey(Problem, on_delete=models.CASCADE)
+	input = models.TextField()
+	output = models.TextField()
+
+	def __str__(self):
+		return ("TC_"+str(self.id)+"_Problem_"+str(self.problem))

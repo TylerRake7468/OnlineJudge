@@ -50,97 +50,99 @@
 	  font-weight: 100;
 	}
 
-	.editor-container {
-	  width: 865px;
-	  height: 540px;
-	  position: relative;
-	}
-
-	#editor {
-	  position: absolute;
-	  left: 0;
-	  right: 0;
-	  top: 0;
-	  bottom: 0;
-	  height: 100%;
-	  width: 100%;
-	  font-size: 20px;
-	}
-	
 {% endblock %}
 
 {% block body %}
-<div>
-	<div class="row">
-		<div class="col-md-6">
-			
-			<h5>_#_:{{ problem.title }}</h5>
-		</div>
-		<div class="col-md-6">
-			<div class="control-panel float-right mx-2 my-1">
-				Select Language
-				&nbsp; &nbsp;
-				<select id="languages" class="languages" onchange="changeLanguage()">
-					<option value="c">C</option>
-					<option value="cpp">C++</option>
-					<option value="python">Python</option>
-					<option value="java">Java</option>
-					<option value="javascript">JavaScript</option>
-					<option value="ruby">Ruby</option>
-					
-				</select>
-			</div>
-		</div>
-	</div>
-</div>
 <div class="container-fluid mx-0">
 	<div class="row">
 		<div class="col-md-6" style="max-width: 42%;">
-			<div class="my-1 scrollbar scrollbar-primary">
-				<div class="force-overflow">
-						<div class="soft-border-div">
-							<div class="container">
-								<b>Statement: </b>{{ problem.safe_statement|safe }}
+			<div class="row mx-2">
+				<h5>_#_:{{ problem.title }}</h5>
+			</div>
+			<div class="row">
+				<div class="my-1 scrollbar scrollbar-primary">
+					<div class="force-overflow">
+							<div class="soft-border-div">
+								<div class="container">
+									<b>Statement: </b>{{ problem.safe_statement|safe }}
+								</div>
 							</div>
-						</div>
-						<div class="soft-border-div">
-							<div class="container">
-								<b>Constraints:</b>{{ problem.safe_constraints|safe }}
+							<div class="soft-border-div">
+								<div class="container">
+									<b>Constraints:</b>{{ problem.safe_constraints|safe }}
+								</div>
 							</div>
-						</div>
-						<div class="soft-border-div">
-							<b>Example:</b><br>
-							<div class="container">
-								<h6>Input:</h6>
-								{{ problem.safe_input|safe }}
-							</div><br>
-							<div class="container">
-								<h6>Output:</h6>
-								{{ problem.safe_output|safe }}
-							</div><br>
-							<div class="container">
-								<h6>Explaination:</h6>
-								{{ problem.example_explain }}
+							<div class="soft-border-div">
+								<b>Example:</b><br>
+								<div class="container">
+									<h6>Input:</h6>
+									{{ problem.safe_input|safe }}
+								</div><br>
+								<div class="container">
+									<h6>Oupdate_editorutput:</h6>
+									{{ problem.safe_output|safe }}
+								</div><br>
+								<div class="container">
+									<h6>Explaination:</h6>
+									{{ problem.example_explain }}
+								</div>
 							</div>
-						</div>
+					</div>
 				</div>
 			</div>
 		</div>
 		<div class="col-md-6">
 			<form action="{% url 'verdict' problem.id %}" method="POST">
 				{% csrf_token %}
-				<div>
-				    <div class="editor-container">
-				      <div id="editor">// Write your code here</div>
-				    </div>
-				</div>
-				<button type="button" class="btn btn-secondary my-2">Custom Input</button>
-				<button type="button" class="btn btn-secondary my-2" onclick="executeCode()">Run</button>
-				<button id="submit" type="submit" class="btn btn-success my-2">Submit</button>
+				<div class="row">
+					<div class="col control-panel float-right mx-2 my-1">
+						Select Language
+						&nbsp; &nbsp;
+						<select id="language" class="language" onchange="update_editor()">
+							<option value="c">C</option>
+							<option value="cpp">C++</option>
+							<option value="python">Python</option>
+							<option value="java">Java</option>
+							<option value="javascript">JavaScript</option>
+							<option value="ruby">Ruby</option>
+						</select>
+					</div>
+					<div class="col control-panel float-right mx-2 my-1">
+		                Select Theme
+		                &nbsp; &nbsp;
+		                <select id="theme" class="form-select" onchange="update_theme()">
+		                    <option value="terminal">Terminal</option>
+		                    <option value="twilight">Twilight</option>
+		                    <option value="monokai">Monokai</option>
+		                    <option value="vibrant_ink">Vibrant Ink</option>
+		                    <option value="xcode">Xcode</option>
+		                    <option value="solarized_light">Solarized Light</option>
+		                    <option value="crimson_editor">Crimson</option>
+		                    <option value="dawn">Dawn</option>
+		                    <option value="eclipse">Eclipse</option>
+		                    <option value="solarized_dark">Solarized Dark</option>
+		                    <option value="cobalt">Cobalt</option>
+		                    <option value="kuroir">Kuroir</option>
+		                    <option value="gob">Green on Black</option>
+		                </select>
+		            </div>
+				</div class="row">
+	            <div class="row" id="editor-div" style="overflow: auto; width: 891px; height: 652px;">
+	                <textarea data-editor="terminal" name="code" cols="85" rows="13" id="editor"></textarea>
+	            </div>
+	            <div class="row">
+					<button type="button" class="col btn btn-secondary my-2 mx-2">Custom Input</button>
+					<button type="button" class="col btn btn-secondary my-2 mx-2" onclick="executeCode()">Run</button>
+					<button id="submit" type="submit" class="col btn btn-success my-2 mx-2">Submit</button>
+	            </div>
 			</form>
 		</div>
 	</div>
 </div>
 
+{% endblock %}
 
+{% block js %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.js"></script>
+<script src="{% static 'js/editor_ace.js' %}"></script>
 {% endblock %}
