@@ -24,27 +24,10 @@ def show_problem(request, id):
 
 def verdict_page(request, id):
 	if request.method == 'POST':
-		# form = SubmissionLogForm(request.POST)
-		# pdb.set_trace()
-		# docker_client = docker.from_env()
-		# Running = "running"
-
-		# problem = Problem.objects.get(id=id)
-		# testcase = TestCase.objects.get(problem_id=id)
-		# testcase.output = testcase.output.replace('\r\n','\n').strip()
-
-		# if problem.difficulty=="Easy":
-		# 	score = 10
-		# elif problem.difficulty=="Medium":
-		# 	score = 30
-		# else:
-		# 	score = 50
-
-		# verdict = "Wrong Answer"
-		# res = ""
-		# run_time = 0
-
-		# user_code = ''
+		form = SubmissionLogForm(request.POST)
+		if form.is_valid():
+			print("Form is valid")
+			print(form.cleaned_data.get['code'])
 		return render(request, "ojapp/verdict_page.html")
 
 def login_handle(request):

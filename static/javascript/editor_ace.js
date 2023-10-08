@@ -35,29 +35,3 @@ $(function create_editor() {
         })
     });
 });
-
-// Hook up ACE editor to all textareas with data-editor attribute
-function update_editor() {
-    var editDiv = $("#custom-editor");
-    var editor = ace.edit(editDiv[0]);
-    var editor_mode = 'c_cpp'
-    var editor_option = $("#language").val();
-    if(editor_option == 'C' || editor_option == 'C++') editor_mode = 'c_cpp';
-    if(editor_option == 'Java') editor_mode = 'java';
-    if(editor_option == 'Python2' || editor_option == 'Python3') editor_mode = 'python';
-
-    editor.setOptions({
-        mode: 'ace/mode/' + editor_mode,
-    });
-}
-
-// Hook up ACE editor to all textareas with data-editor attribute
-function update_theme() {
-    var editDiv = $("#custom-editor");
-    var editor = ace.edit(editDiv[0]);
-    var theme = $("#theme").val();
-    
-    editor.setOptions({
-        theme: 'ace/theme/' + theme,
-    });
-}

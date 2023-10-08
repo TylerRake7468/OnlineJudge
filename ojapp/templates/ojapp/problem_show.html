@@ -92,7 +92,7 @@
 			</div>
 		</div>
 		<div class="col-md-6">
-			<form action="{% url 'verdict' problem.id %}" method="POST">
+			<form action="{% url 'verdict' problem.id %}" method="POST" enctype="multipart/form-data">
 				{% csrf_token %}
 				<div class="row">
 					<div class="col control-panel float-right mx-2 my-1">
@@ -101,7 +101,8 @@
 						<select id="language" class="language" onchange="update_editor()">
 							<option value="c">C</option>
 							<option value="cpp">C++</option>
-							<option value="python">Python</option>
+							<option value="python2">Python2</option>
+							<option value="python3">Python3</option>
 							<option value="java">Java</option>
 							<option value="javascript">JavaScript</option>
 							<option value="ruby">Ruby</option>
@@ -128,7 +129,7 @@
 		            </div>
 				</div class="row">
 	            <div class="row" id="editor-div" style="overflow: auto; width: 891px; height: 652px;">
-	                <textarea data-editor="terminal" name="code" cols="85" rows="13" id="editor"></textarea>
+	                <textarea data-editor="terminal" name="code" cols="85" rows="13" id="editor">Write your code here</textarea>
 	            </div>
 	            <div class="row">
 					<button type="button" class="col btn btn-secondary my-2 mx-2">Custom Input</button>
@@ -144,5 +145,38 @@
 
 {% block js %}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.js"></script>
-<script src="{% static 'js/editor_ace.js' %}"></script>
+<script src="{% static '/javascript/editor_ace.js' %}"></script>
+<script>
+	
+// Hook up ACE editor to all textareas with data-editor attribute
+	function update_editor() {
+		console.log("update editor function")
+	    var editDiv = $("#custom-editor");
+	    console.log(editDiv)
+	    var editor = ace.edit(editDiv[0]);
+	    console.log(editor)
+	    var editor_mode = 'c_cpp'
+	    var editor_option = $("#language").val();
+	    if(editor_option == 'c' || editor_option == 'cpp') editor_mode = 'c_cpp';
+	    if(editor_option == 'java') editor_mode = 'java';
+	    if(editor_option == 'python2' || editor_option == 'python3') editor_mode = 'python';
+	    if(editor_option == 'ruby')	editor_mode = 'ruby'
+	    if(editor_option == 'javascript') editor_mode = 'javascript'
+
+	    editor.setOptions({
+	        mode: 'ace/mode/' + editor_mode,
+	    });
+	}
+
+	// Hook up ACE editor to all textareas with data-editor attribute
+	function update_theme() {
+	    var editDiv = $("#custom-editor");
+	    var editor = ace.edit(editDiv[0]);
+	    var theme = $("#theme").val();
+	    
+	    editor.setOptions({
+	        theme: 'ace/theme/' + theme,
+	    });
+	}
+</script>
 {% endblock %}
