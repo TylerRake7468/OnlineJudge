@@ -47,7 +47,7 @@
         </ul>
 
         <ul class="navbar-nav ml-auto">
-          {% if 'user_id' in request.session %}
+          {% if request.user.is_authenticated %}
             <li class="nav-item">
               <a class="nav-link text-dark" href="{% url 'logout' %}">logout</a>
             </li>

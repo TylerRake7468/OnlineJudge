@@ -98,20 +98,18 @@
 					<div class="col control-panel float-right mx-2 my-1">
 						Select Language
 						&nbsp; &nbsp;
-						<select id="language" class="language" onchange="update_editor()">
-							<option value="c">C</option>
-							<option value="cpp">C++</option>
-							<option value="python2">Python2</option>
-							<option value="python3">Python3</option>
-							<option value="java">Java</option>
-							<option value="javascript">JavaScript</option>
-							<option value="ruby">Ruby</option>
+						<select id="language_id" name="language_val" class="language" onchange="update_editor()">
+							<option value="C">C</option>
+							<option value="Cpp">C++</option>
+							<option value="Python2">Python2</option>
+							<option value="Python3">Python3</option>
+							<option value="Java">Java</option>
 						</select>
 					</div>
 					<div class="col control-panel float-right mx-2 my-1">
 		                Select Theme
 		                &nbsp; &nbsp;
-		                <select id="theme" class="form-select" onchange="update_theme()">
+		                <select id="theme" name="theme_val" class="form-select" onchange="update_theme()">
 		                    <option value="terminal">Terminal</option>
 		                    <option value="twilight">Twilight</option>
 		                    <option value="monokai">Monokai</option>
@@ -132,9 +130,15 @@
 	                <textarea data-editor="terminal" name="code" cols="85" rows="13" id="editor">Write your code here</textarea>
 	            </div>
 	            <div class="row">
-					<button type="button" class="col btn btn-secondary my-2 mx-2">Custom Input</button>
-					<button type="button" class="col btn btn-secondary my-2 mx-2" onclick="executeCode()">Run</button>
-					<button id="submit" type="submit" class="col btn btn-success my-2 mx-2">Submit</button>
+	            	{% if request.user.is_authenticated %}
+						<button type="button" class="col btn btn-secondary my-2 mx-2">Custom Input</button>
+						<button type="button" class="col btn btn-secondary my-2 mx-2" onclick="executeCode()">Run</button>
+						<button id="submit" type="submit" class="col btn btn-success my-2 mx-2">Submit</button>
+					{% else %}
+						<button type="button" class="col btn btn-secondary my-2 mx-2" data-bs-toggle="tooltip" data-bs-placement="right" title="Login required *" disabled>Custom Input</button>
+						<button type="button" class="col btn btn-secondary my-2 mx-2" onclick="executeCode()" data-bs-toggle="tooltip" data-bs-placement="right" title="Login required *" disabled>Run</button>
+						<button id="submit" type="submit" class="col btn btn-success my-2 mx-2" data-bs-toggle="tooltip" data-bs-placement="right" title="Login required *" disabled>Submit</button>
+					{% endif %}
 	            </div>
 			</form>
 		</div>
@@ -145,7 +149,6 @@
 
 {% block js %}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.js"></script>
-<script src="{% static '/javascript/editor_ace.js' %}"></script>
 <script>
 	
 // Hook up ACE editor to all textareas with data-editor attribute
@@ -156,7 +159,7 @@
 	    var editor = ace.edit(editDiv[0]);
 	    console.log(editor)
 	    var editor_mode = 'c_cpp'
-	    var editor_option = $("#language").val();
+	    var editor_option = $("#language_id").val();
 	    if(editor_option == 'c' || editor_option == 'cpp') editor_mode = 'c_cpp';
 	    if(editor_option == 'java') editor_mode = 'java';
 	    if(editor_option == 'python2' || editor_option == 'python3') editor_mode = 'python';
@@ -166,6 +169,7 @@
 	    editor.setOptions({
 	        mode: 'ace/mode/' + editor_mode,
 	    });
+		$("#language").val(editor_option);
 	}
 
 	// Hook up ACE editor to all textareas with data-editor attribute
@@ -178,5 +182,10 @@
 	        theme: 'ace/theme/' + theme,
 	    });
 	}
+	var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+	var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+	  $tooltip-color: $white;
+	  return new bootstrap.Tooltip(tooltipTriggerEl)
+	})
 </script>
 {% endblock %}
