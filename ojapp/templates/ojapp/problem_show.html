@@ -135,7 +135,7 @@
 						<button type="button" class="col btn btn-secondary my-2 mx-2" onclick="executeCode()">Run</button>
 						<button id="submit" type="submit" class="col btn btn-success my-2 mx-2">Submit</button>
 					{% else %}
-						<button type="button" class="col btn btn-secondary my-2 mx-2" data-bs-toggle="tooltip" data-bs-placement="right" title="Login required *" disabled>Custom Input</button>
+						<button type="button" class="col btn btn-secondary my-2 mx-2"  data-bs-toggle="tooltip" data-bs-placement="right" title="Login required *" disabled>Custom Input</button>
 						<button type="button" class="col btn btn-secondary my-2 mx-2" onclick="executeCode()" data-bs-toggle="tooltip" data-bs-placement="right" title="Login required *" disabled>Run</button>
 						<button id="submit" type="submit" class="col btn btn-success my-2 mx-2" data-bs-toggle="tooltip" data-bs-placement="right" title="Login required *" disabled>Submit</button>
 					{% endif %}
@@ -150,8 +150,6 @@
 {% block js %}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.js"></script>
 <script>
-	
-// Hook up ACE editor to all textareas with data-editor attribute
 	function update_editor() {
 		console.log("update editor function")
 	    var editDiv = $("#custom-editor");
@@ -172,19 +170,19 @@
 		$("#language").val(editor_option);
 	}
 
-	// Hook up ACE editor to all textareas with data-editor attribute
 	function update_theme() {
 	    var editDiv = $("#custom-editor");
 	    var editor = ace.edit(editDiv[0]);
 	    var theme = $("#theme").val();
-	    
+	    console.log("inside update theme");
+	    console.log(theme);
 	    editor.setOptions({
 	        theme: 'ace/theme/' + theme,
 	    });
 	}
 	var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
 	var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-	  $tooltip-color: $white;
+	  // $tooltip-color: $white;
 	  return new bootstrap.Tooltip(tooltipTriggerEl)
 	})
 </script>

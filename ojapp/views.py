@@ -6,6 +6,7 @@ from django.contrib.auth import login, authenticate, logout
 from .forms import CodeForm
 from time import time
 from datetime import datetime
+from django.conf import settings
 import pdb
 import docker
 import os
@@ -51,17 +52,16 @@ def verdict_page(request, id):
         verdict = "Wrong Answer" 
         res = ""
         run_time = 0
-        # pdb.set_trace()
         language = request.POST.get('language_val')
-        pdb.set_trace()
-        user = User.objects.get(id=request.session['user_id'])
+        user = User.objects.get(id=request.user.id)
         submission_log = SubmissionLog(user=user, problem=problem, submitted_at=datetime.now(), language=language, code=user_code)
         submission_log.save()
 
-        file_name = str(submission_log.id)
+        filename = str(submission_log.id)
+        extension = ".txt"
 
 		
-        if language == "C++":
+        if language == "Cpp":
             extension = ".cpp"
             cont_name = "oj-cpp"
             compile = f"g++ -o {filename} {filename}.cpp"
@@ -102,9 +102,11 @@ def verdict_page(request, id):
             docker_img = "openjdk"
             exe = f"java {filename}"
 
-		# file = file_name + extension
-
-		# file_path = settings.FILE_DIR
+        file = filename+extension
+        file_path = os.path.join(settings.FILES_DIR, file)
+        code = open(file_path,"w")
+        code.write(user_code)
+        code.close()
 
         return render(request, "ojapp/verdict_page.html", {'code': user_code})
 
@@ -116,7 +118,6 @@ def login_handle(request):
         try:
             user = authenticate(request, username=username, password=password)
             if user is not None:
-                # request.session['user_id'] = user.id
                 login(request, user)
                 return redirect("home")
             else:

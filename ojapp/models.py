@@ -56,7 +56,7 @@ class SubmissionLog(models.Model):
 	LANGUAGES = (("C++", "C++"), ("C", "C"), ("Python3", "Python3"), ("Python2", "Python2"), ("Java", "Java"))
 	id = models.AutoField(primary_key=True)
 	problem = models.ForeignKey(Problem, on_delete = models.CASCADE)
-	# user = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
+	user = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
 	submitted_at = models.DateTimeField(auto_now_add=True)
 	language = models.CharField(max_length=10, choices=LANGUAGES, default="c++")
 	run_time = models.FloatField(null=True, default=0)
@@ -65,7 +65,7 @@ class SubmissionLog(models.Model):
 	error_message = models.TextField(null=True)
 
 	def __str__(self):
-		return str(self.submitted_at)+"_"+str(self.user.name)+"_"+self.problem.name+"_"+self.status
+		return str(self.submitted_at)+"_"+str(self.user.username)+"_"+str(self.problem.id)+"_"+self.status
 
 class TestCase(models.Model):
 	problem = models.ForeignKey(Problem, on_delete=models.CASCADE)
