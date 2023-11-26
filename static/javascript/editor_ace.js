@@ -4,7 +4,7 @@ $(function create_editor() {
         var theme = textarea.data('editor');
         var editDiv = $('<div>', {
             position: 'absolute',
-            width: '888px',
+            width: '100%',
             height: '652px',
             'class': textarea.attr('class'),
             'id':'custom-editor'

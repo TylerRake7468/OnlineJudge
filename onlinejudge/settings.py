@@ -76,12 +76,19 @@ WSGI_APPLICATION = 'onlinejudge.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'ojdb',
+#         'USER': 'ojgroup',
+#         'PASSWORD': 'Classic@787',
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'ojdb',
-        'USER': 'ojgroup',
-        'PASSWORD': 'Classic@787',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / "db.sqlite3",
     }
 }
 
