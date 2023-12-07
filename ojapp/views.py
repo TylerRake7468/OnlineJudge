@@ -15,7 +15,11 @@ import subprocess
 import os.path
 
 def home(request):
-	return render(request, "ojapp/index.html")
+    problems = Problem.objects.all()
+    context = {
+        'problems': problems,
+    }
+    return render(request, "ojapp/index.html", context)
 
 def problems(request):
 	problems = Problem.objects.all()

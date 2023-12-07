@@ -6,17 +6,11 @@
 <div class="container my-5">
 	<ul class="list-group">
 	  <li class="list-group-item">Newly Added Problems</li>
-
-	  <li class="list-group-item list-group-item-action list-group-item-primary">Problem 1</li>
-	  <li class="list-group-item list-group-item-action list-group-item-secondary">Problem 2</li>
-	  <li class="list-group-item list-group-item-action list-group-item-success">Problem 3</li>
-	  <li class="list-group-item list-group-item-action list-group-item-danger">Problem 4</li>
-	  <li class="list-group-item list-group-item-action list-group-item-warning">Problem 5</li>
-	  <li class="list-group-item list-group-item-action list-group-item-info">Problem 6</li>
-	  <li class="list-group-item list-group-item-action list-group-item-light">Problem 7</li>
-	  <li class="list-group-item list-group-item-action list-group-item-dark">Problem 8</li>
-	  <li class="list-group-item list-group-item-action list-group-item-primary">Problem 9</li>
-	  <li class="list-group-item list-group-item-action list-group-item-secondary">Problem 10</li>
+	  {% for problem in problems|slice:":10" %}
+	  	<li class="list-group-item list-group-item-action list-group-item-primary">
+	        <a href="{% url 'show_problem' id=problem.id %}">{{ problem.number }}: {{ problem.title }}</a>
+	        <a href="{% url 'show_problem' id=problem.id %}" class="float-right">Solve</a></li>
+	  {% endfor %}
 	</ul>
 
 </div>
